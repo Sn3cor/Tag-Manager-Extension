@@ -1,5 +1,5 @@
 # Tag-Manager-Extension
-## Extension for managing tags from Google Ads
+## Extension for managing tags from Google Analytics
 
 Primitive extension that lets you load data from an .xlsx file
 
