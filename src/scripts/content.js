@@ -42,9 +42,13 @@ function loadContent(file) {
 
         for (let i = 0; i < 10; i++) {
 
-            addRow.click();
+
             let choice = jsonData[i].Value;
             let address = jsonData[i].Adres;
+            if (address === undefined) {
+                break;
+            }
+            addRow.click();
             console.log(choice);
             console.log(address);
             console.log(i)
