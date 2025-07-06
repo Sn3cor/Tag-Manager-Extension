@@ -1,0 +1,27 @@
+{
+    "manifest_version": 3,
+    "name": "Tag Manager Extension",
+    "version": "1.0.0",
+    "description": "A Chrome extension to manage tags from Google Ads",
+    "permissions": [
+        "activeTab",
+        "scripting"
+    ],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "content_scripts": [
+        {
+            "js": [
+                "content.js"
+            ],
+            "matches": [
+                "https://tagmanager.google.com/*"
+            ]
+        }
+    ],
+    "action": {
+        "default_popup": "popup.html",
+        "default_title": "Tag Manager Extension"
+    }
+}
