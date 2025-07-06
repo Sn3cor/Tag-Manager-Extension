@@ -24,26 +24,35 @@ function loadContent(file) {
         console.log("brak pliku");
         return
     }
-    //document.querySelectorAll('.wd-vt-st-remove-row-button').forEach(btn => btn.click());
+
 
     reader.onload = (e) => {
         const data = new Uint8Array(e.target.result);
         const workbook = XLSX.read(data, { type: "array" });
         const sheet = workbook.Sheets[workbook.SheetNames[0]];
         const jsonData = XLSX.utils.sheet_to_json(sheet);
+
         const addRow = document.querySelector('.wd-vt-simple-table-add-row');
         const tbody = document.querySelector('.vt-simple-table-md tbody');
+        if (!addRow || !tbody) {
+            console.log("Nie znaleziono tabeli lub przycisku.");
+            return;
+        }
+        //document.querySelectorAll('.wd-vt-st-remove-row-button').forEach(btn => btn.click());
+
         for (let i = 0; i < 10; i++) {
+
             addRow.click();
             let choice = jsonData[i].Value;
             let address = jsonData[i].Adres;
             console.log(choice);
             console.log(address);
+            console.log(i)
             const row = tbody.querySelector(`.simple-table-row--${i}`);
             const selection = row.querySelector('.blg-select');
             const addressInput = row.querySelector('.blg-input');
             if (selection && addressInput) {
-                selection.value = `string:s-${choice}`;
+                selection.selectedIndex = choice - 1;
                 selection.dispatchEvent(new Event('change', { bubbles: true }));
                 addressInput.value = address;
                 addressInput.dispatchEvent(new Event('input', { bubbles: true }));
@@ -57,10 +66,11 @@ function loadContent(file) {
     reader.readAsArrayBuffer(file);
 }
 
-if (window.location.hash.includes('/container/accounts/') &&
-    window.location.hash.includes('/workspaces') &&
-    window.location.hash.includes('/activities/create/ogt_ip_mark')) {
-    const interval = setInterval(() => {
+
+const interval = setInterval(() => {
+    if (window.location.hash.includes('/container/accounts/') &&
+        window.location.hash.includes('/workspaces') &&
+        window.location.hash.includes('/activities/create/ogt_ip_mark')) {
         const pos = document.querySelector('.wd-vt-simple-table-add-row');
 
         if (!pos || (document.querySelector('#LoadButton') && document.querySelector('#FileInput'))) {
@@ -87,5 +97,6 @@ if (window.location.hash.includes('/container/accounts/') &&
             // clearInterval(interval);
 
         }
-    }, 1000);
-}
+    }
+}, 1000);
+
