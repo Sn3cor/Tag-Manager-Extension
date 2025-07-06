@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "Tag Manager Extension",
     "version": "1.0.0",
-    "description": "A Chrome extension to manage tags from Google Ads",
+    "description": "A Chrome extension to manage tags from Google Analytics",
     "permissions": [
         "activeTab",
         "scripting"
